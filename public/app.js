@@ -32,6 +32,21 @@
     renderHero(cfg);
     renderJobs(cfg.jobs || []);
     renderKpis(cfg.kpis || []);
+    renderTicker(cfg);
+  }
+
+  function renderTicker(cfg){
+    var ticker = $('ticker');
+    var text = (cfg.runningText || '').trim();
+    if(!text){
+      ticker.style.display = 'none';
+      return;
+    }
+    ticker.style.display = 'flex';
+    $('tickerText1').textContent = text;
+    $('tickerText2').textContent = text;
+    var duration = Math.max(text.length * 0.28, 12);
+    $('tickerTrack').style.animationDuration = duration + 's';
   }
 
   function renderHero(cfg){
@@ -68,6 +83,25 @@
     });
   }
 
+  function pctNumber(v){
+    var n = parseFloat(String(v || '').replace(',', '.'));
+    return isNaN(n) ? null : n;
+  }
+
+  function appendKpiCompareRow(card, tag, pct){
+    var n = pctNumber(pct);
+    if(n === null) return;
+    var row = el('div', 'kpi-compare-row');
+    row.appendChild(el('span', 'kpi-compare-tag', tag));
+    var bar = el('div', 'kpi-bar');
+    var fill = el('div', 'kpi-bar-fill');
+    fill.style.width = Math.max(0, Math.min(100, n)) + '%';
+    bar.appendChild(fill);
+    row.appendChild(bar);
+    row.appendChild(el('span', 'kpi-compare-pct', n + '%'));
+    card.appendChild(row);
+  }
+
   function renderKpis(kpis){
     var footer = $('footer');
     clear(footer);
@@ -79,6 +113,14 @@
       valWrap.appendChild(document.createTextNode(kpi.value || ''));
       if(kpi.suffix){ valWrap.appendChild(el('span', 'kpi-suffix', kpi.suffix)); }
       card.appendChild(valWrap);
+
+      if(pctNumber(kpi.ytdPercent) !== null || pctNumber(kpi.fyPercent) !== null){
+        var compare = el('div', 'kpi-compare');
+        appendKpiCompareRow(compare, 'YTD', kpi.ytdPercent);
+        appendKpiCompareRow(compare, 'FY', kpi.fyPercent);
+        card.appendChild(compare);
+      }
+
       footer.appendChild(card);
     });
   }

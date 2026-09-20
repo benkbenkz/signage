@@ -82,6 +82,7 @@
     $('f_clientCount').value = editing.clientCount || '';
     $('f_employeeCaption').value = editing.employeeCaption || '';
     $('f_jobsContact').value = editing.jobsContact || '';
+    $('f_runningText').value = editing.runningText || '';
     if(!editing.jobs) editing.jobs = [];
     if(!editing.kpis) editing.kpis = [];
     renderHeroPreview();
@@ -103,6 +104,7 @@
     editing.clientCount = $('f_clientCount').value;
     editing.employeeCaption = $('f_employeeCaption').value;
     editing.jobsContact = $('f_jobsContact').value;
+    editing.runningText = $('f_runningText').value;
   }
 
   // ---------- hero media ----------
@@ -234,12 +236,26 @@
       r3.appendChild(valInput); r3.appendChild(sufInput); r3.appendChild(hlWrap);
       item.appendChild(r3);
 
+      var g2 = el('div', 'fgroup');
+      g2.style.marginTop = '8px';
+      g2.appendChild(el('label', null, 'Pencapaian vs Target (% — kosongkan jika tidak dipakai)'));
+      var r2 = el('div', 'row2');
+      var ytdInput = document.createElement('input');
+      ytdInput.type = 'text'; ytdInput.placeholder = '% vs Target YTD'; ytdInput.value = kpi.ytdPercent || '';
+      ytdInput.oninput = function(){ kpi.ytdPercent = ytdInput.value; };
+      var fyInput = document.createElement('input');
+      fyInput.type = 'text'; fyInput.placeholder = '% vs Target Full Year'; fyInput.value = kpi.fyPercent || '';
+      fyInput.oninput = function(){ kpi.fyPercent = fyInput.value; };
+      r2.appendChild(ytdInput); r2.appendChild(fyInput);
+      g2.appendChild(r2);
+      item.appendChild(g2);
+
       wrap.appendChild(item);
     });
   }
 
   $('addKpiBtn').onclick = function(){
-    editing.kpis.push({ label: 'Label KPI', value: '0', suffix: '', highlight: false });
+    editing.kpis.push({ label: 'Label KPI', value: '0', suffix: '', highlight: false, ytdPercent: '', fyPercent: '' });
     renderKpisEditor();
   };
 

@@ -26,12 +26,13 @@ const DEFAULTS = {
     { title: '[Nama Posisi]', dept: '[Departemen]', location: '[Lokasi]', status: 'Dibuka' }
   ],
   jobsContact: 'Info & lamaran: [tautan/kontak karier]',
+  runningText: 'Selamat datang di Dasbor Signage PERSADA — [isi teks berjalan lewat CMS]',
   kpis: [
-    { label: 'Target Pendapatan', value: 'Rp 1,25', suffix: 'T', highlight: false },
-    { label: 'Target Margin Bersih', value: '11,8', suffix: '%', highlight: true },
-    { label: 'Rekor Keselamatan', value: '412', suffix: 'Hari', highlight: false },
-    { label: 'Retensi Klien', value: '98,5', suffix: '%', highlight: false },
-    { label: 'Kepuasan Klien', value: '4,85', suffix: '/ 5,0', highlight: false }
+    { label: 'Target Pendapatan', value: 'Rp 1,25', suffix: 'T', highlight: false, ytdPercent: '92', fyPercent: '68' },
+    { label: 'Target Margin Bersih', value: '11,8', suffix: '%', highlight: true, ytdPercent: '101', fyPercent: '74' },
+    { label: 'Rekor Keselamatan', value: '412', suffix: 'Hari', highlight: false, ytdPercent: '', fyPercent: '' },
+    { label: 'Retensi Klien', value: '98,5', suffix: '%', highlight: false, ytdPercent: '99', fyPercent: '72' },
+    { label: 'Kepuasan Klien', value: '4,85', suffix: '/ 5,0', highlight: false, ytdPercent: '97', fyPercent: '71' }
   ]
 };
 
